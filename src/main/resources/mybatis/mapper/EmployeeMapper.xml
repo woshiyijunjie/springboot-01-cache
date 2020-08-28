@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junjie.cache.mapper.EmployeeMapper">
+
+    <select id="getAllEmployee" resultType="com.junjie.cache.bean.Employee">
+        SELECT * FROM employee
+    </select>
+    <!--根据 id 查询-->
+    <select id="getEmployeeById" parameterType="java.lang.Integer" resultType="com.junjie.cache.bean.Employee">
+        SELECT * FROM employee WHERE id = #{id}
+    </select>
+    <!---->
+    <select id="getEmployeeByLastName" parameterType="java.lang.String" resultType="com.junjie.cache.bean.Employee">
+        SELECT * FROM employee WHERE lastName = #{lastName}
+    </select>
+    <!--更新员工-->
+    <update id="updateEmployeeById" parameterType="com.junjie.cache.bean.Employee">
+        UPDATE employee
+        <set>
+            <if test="lastName != null and lastName != ''">
+                lastName = #{lastName},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="dId != null and dId != ''">
+                d_id = #{dId}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <!--根据 id 来删除员工-->
+    <delete id="deleteEmployeeById" parameterType="java.lang.Integer">
+        DELETE FROM employee WHERE id = #{id}
+    </delete>
+
+</mapper>
